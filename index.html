@@ -30,7 +30,8 @@
     .nav-logo-icon svg { width: 20px; height: 20px; }
     .nav-logo-text { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 1.15rem; color: var(--negro); letter-spacing: -0.03em; }
     .nav-links { display: flex; gap: 2rem; align-items: center; }
-    .nav-hamburger { display: none; }
+    .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; margin: 0; }
+    .nav-hamburger span { display: block; width: 24px; height: 2.5px; background: #111; border-radius: 2px; margin: 5px 0; transition: all 0.2s; }
     .nav-links a { font-size: 0.88rem; color: var(--gris); text-decoration: none; font-weight: 400; transition: color 0.2s; }
     .nav-links a:hover { color: var(--negro); }
     .nav-cta { background: var(--negro) !important; color: var(--blanco) !important; padding: 0.55rem 1.3rem; border-radius: 100px; font-weight: 500 !important; font-size: 0.85rem !important; }
@@ -233,7 +234,16 @@
     <a href="#contacto" class="nav-cta" onclick="cerrarMenu()">Contacto</a>
   </div>
 </nav>
-
+<script>
+  var hamburger = document.getElementById('nav-hamburger');
+  var navLinks = document.getElementById('nav-links');
+  hamburger.addEventListener('click', function() {
+    navLinks.classList.toggle('open');
+  });
+  function cerrarMenu() {
+    navLinks.classList.remove('open');
+  }
+</script>
 
 <section class="hero">
   <div class="hero-bg"></div>
@@ -484,21 +494,6 @@
     document.querySelectorAll('.hero-tag, .hero h1, .hero p, .hero-btns, .hero-visual')
       .forEach((el, i) => setTimeout(() => el.classList.add('visible'), i * 120));
   }, 100);
-</script>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var hamburger = document.getElementById('nav-hamburger');
-    var navLinks = document.getElementById('nav-links');
-    if (hamburger && navLinks) {
-      hamburger.addEventListener('click', function() {
-        navLinks.classList.toggle('open');
-      });
-    }
-  });
-  function cerrarMenu() {
-    var navLinks = document.getElementById('nav-links');
-    if (navLinks) navLinks.classList.remove('open');
-  }
 </script>
 </body>
 </html>
