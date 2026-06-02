@@ -75,6 +75,8 @@
     .btn-dark:hover { transform: translateY(-2px); opacity: 0.85; }
     .btn-outline { background: transparent; color: var(--negro); border: 1.5px solid rgba(0,0,0,0.12); padding: 0.88rem 1.8rem; border-radius: 100px; font-weight: 400; font-size: 0.9rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: border-color 0.2s, transform 0.2s; }
     .btn-outline:hover { border-color: var(--negro); transform: translateY(-2px); }
+    .btn-download { background: transparent; color: var(--azul); border: 1.5px solid var(--azul); padding: 0.88rem 1.8rem; border-radius: 100px; font-weight: 500; font-size: 0.9rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.2s; }
+    .btn-download:hover { background: var(--azul); color: var(--blanco); transform: translateY(-2px); }
     /* Store buttons */
     .store-btns { display: flex; gap: 0.65rem; flex-wrap: wrap; }
     .btn-store { display: inline-flex; align-items: center; gap: 0.6rem; background: var(--negro); color: var(--blanco); padding: 0.7rem 1.2rem; border-radius: 12px; text-decoration: none; opacity: 0.55; pointer-events: none; transition: all 0.2s; border: 1.5px solid rgba(255,255,255,0.08); }
@@ -292,6 +294,10 @@
       <div class="hero-btns">
         <a href="#contacto" class="btn-dark">Registra tu comercio <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></a>
         <a href="#como-funciona" class="btn-outline">Ver cómo funciona</a>
+        <a href="https://firebasestorage.googleapis.com/v0/b/mi-barrio-vivo-ba557.firebasestorage.app/o/docs%2FVitryna_Guia_Comercios.pdf?alt=media&token=4a1d620a-efc2-459e-8f08-592cb1d88d3a" target="_blank" class="btn-download" download="Vitryna_Guia_Comercios.pdf">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 16l-6-6h4V4h4v6h4l-6 6zm-8 4h16v-2H4v2z" fill="currentColor"/></svg>
+          Guía para comercios
+        </a>
       </div>
       <div class="store-btns">
         <a href="#" class="btn-store" aria-label="Google Play">
