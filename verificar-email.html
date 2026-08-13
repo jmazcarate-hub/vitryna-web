@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verificar email — Vitryna</title>
+  <link rel="icon" type="image/png" href="https://firebasestorage.googleapis.com/v0/b/mi-barrio-vivo-ba557.firebasestorage.app/o/brand%2Ficon.png?alt=media&token=f5317c2f-2f05-43c3-b376-5a15364adbd2">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --azul: #1A6BFF;
+      --azul-osc: #1259E0;
+      --naranja: #FFAA00;
+      --negro: #0A0A0F;
+      --gris: #64748B;
+      --gris-claro: #F8FAFC;
+      --borde: rgba(0,0,0,0.10);
+      --error: #EF4444;
+      --exito: #22C55E;
+    }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--gris-claro);
+      color: var(--negro);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      padding: 40px 36px;
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+    .logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+    }
+    .logo span {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--azul);
+    }
+    h1 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      color: var(--gris);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .icono { font-size: 48px; margin-bottom: 16px; }
+    .spinner {
+      display: inline-block;
+      width: 32px; height: 32px;
+      border: 3px solid var(--borde);
+      border-top-color: var(--azul);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin-bottom: 16px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div class="logo">
+    <img src="https://firebasestorage.googleapis.com/v0/b/mi-barrio-vivo-ba557.firebasestorage.app/o/brand%2Ficon.png?alt=media&token=f5317c2f-2f05-43c3-b376-5a15364adbd2" alt="Vitryna">
+    <span>Vitryna</span>
+  </div>
+
+  <div id="view-cargando">
+    <div class="spinner"></div>
+    <h1>Verificando tu email…</h1>
+    <p class="subtitle">Esto solo tardará un momento.</p>
+  </div>
+
+  <div id="view-exito" style="display:none;">
+    <div class="icono">✓</div>
+    <h1>Email verificado</h1>
+    <p class="subtitle">Ya puedes volver a la app Vitryna — tu cuenta se activará en unos segundos.</p>
+  </div>
+
+  <div id="view-error" style="display:none;">
+    <div class="icono">✗</div>
+    <h1>Enlace no válido</h1>
+    <p class="subtitle">Este enlace ha caducado o ya se ha usado. Vuelve a la app y pulsa "Reenviar email" para solicitar uno nuevo.</p>
+  </div>
+</div>
+
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+  import { getAuth, applyActionCode } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAKCMY1rYNzqFGoqDprOiMC2MyCNYILQsw",
+    authDomain: "mi-barrio-vivo-ba557.firebaseapp.com",
+    projectId: "mi-barrio-vivo-ba557",
+    storageBucket: "mi-barrio-vivo-ba557.firebasestorage.app",
+    messagingSenderId: "610698988883",
+    appId: "1:610698988883:web:0e9aad627d6707a38ee5a6"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  function mostrar(vista) {
+    document.getElementById('view-cargando').style.display = 'none';
+    document.getElementById('view-exito').style.display = 'none';
+    document.getElementById('view-error').style.display = 'none';
+    document.getElementById(vista).style.display = 'block';
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  const oobCode = params.get('oobCode');
+  const mode = params.get('mode');
+
+  if (!oobCode || mode !== 'verifyEmail') {
+    mostrar('view-error');
+  } else {
+    applyActionCode(auth, oobCode)
+      .then(() => {
+        // Limpiar el oobCode de la URL para que un refresco no reintente sobre un código ya usado
+        history.replaceState({}, '', window.location.pathname);
+        mostrar('view-exito');
+      })
+      .catch(() => mostrar('view-error'));
+  }
+</script>
+
+</body>
+</html>
