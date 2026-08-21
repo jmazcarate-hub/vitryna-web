@@ -2,6 +2,43 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <script>
+    // ── CONFIG DE TIENDAS ───────────────────────────────────────────────────
+    // Única fuente de verdad para activar la redirección inteligente y los
+    // botones de descarga cuando la app se publique en cada tienda. El QR
+    // físico ya está impreso y apunta a la raíz de vitryna.app sin ninguna
+    // ruta adicional -- no se puede cambiar. Activar una tienda es solo:
+    // poner su "live" a true y rellenar "url" con la ficha real, sin tocar
+    // nada más (ni el QR, ni la estructura de esta página, ni la de
+    // Android una vez rellena, si iOS tarda más en aprobarse).
+    var STORE_CONFIG = {
+      android: {
+        live: false,
+        url: 'https://play.google.com/store/apps/details?id=com.mibarriovivo.mi_barrio_vivo_base'
+      },
+      ios: {
+        live: false,
+        url: '' // rellenar con la ficha real de App Store en cuanto exista
+      }
+    };
+
+    // Redirección inteligente por user-agent -- va aquí arriba, antes de
+    // cargar fuentes/CSS/el resto del <head>, para redirigir lo antes
+    // posible en un móvil y no hacer parpadear la landing de por medio. Si
+    // no se puede determinar la plataforma (ordenador, navegador raro) o
+    // esa tienda todavía no está activa (STORE_CONFIG.*.live === false),
+    // no hace nada -- la landing normal de más abajo hace de "disponible
+    // muy pronto" mientras tanto, con sus botones ya preparados para
+    // activarse solos (ver el script del final de la página).
+    (function () {
+      var ua = navigator.userAgent || '';
+      if (/Android/i.test(ua) && STORE_CONFIG.android.live && STORE_CONFIG.android.url) {
+        window.location.replace(STORE_CONFIG.android.url);
+      } else if (/iPhone|iPad|iPod/i.test(ua) && STORE_CONFIG.ios.live && STORE_CONFIG.ios.url) {
+        window.location.replace(STORE_CONFIG.ios.url);
+      }
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vitryna - El escaparate de tu barrio</title>
   <link rel="icon" type="image/png" href="https://firebasestorage.googleapis.com/v0/b/mi-barrio-vivo-ba557.firebasestorage.app/o/brand%2Ficon.png?alt=media&token=f5317c2f-2f05-43c3-b376-5a15364adbd2">
@@ -300,11 +337,11 @@
         </a>
       </div>
       <div class="store-btns">
-        <a href="#" class="btn-store" aria-label="Google Play">
+        <a href="#" id="btn-store-android" class="btn-store" aria-label="Google Play">
           <svg class="btn-store-icon" viewBox="0 0 24 24"><path d="M3.18 23.76a2 2 0 0 0 2.06-.18l11.62-6.71-2.84-2.84-10.84 9.73zm16.28-13.5L16.7 8.5 13.54 11.67l2.74 2.74 3.18-1.84a1.5 1.5 0 0 0 0-2.31zM2.1 1.03A1.5 1.5 0 0 0 2 1.7v20.6a1.5 1.5 0 0 0 .1.67l.06.06 11.54-11.54v-.28L2.16.97l-.06.06zm9.6 10.3L2.1 1.03l-.06.06 11.6 11.6-1.94-1.36z"/></svg>
           <span class="btn-store-text"><span class="btn-store-soon">Próximamente en</span><span class="btn-store-name">Google Play <span class="badge-pronto">Pronto</span></span></span>
         </a>
-        <a href="#" class="btn-store" aria-label="App Store">
+        <a href="#" id="btn-store-ios" class="btn-store" aria-label="App Store">
           <svg class="btn-store-icon" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
           <span class="btn-store-text"><span class="btn-store-soon">Próximamente en</span><span class="btn-store-name">App Store <span class="badge-pronto">Pronto</span></span></span>
         </a>
@@ -598,6 +635,31 @@
     if (hamburger && navLinks) {
       hamburger.addEventListener('click', function() { navLinks.classList.toggle('open'); });
     }
+  });
+
+  // Botones de tienda -- misma STORE_CONFIG que la redirección inteligente
+  // del <head>. En cuanto una tienda pase a live:true (con su url real),
+  // este botón deja de estar deshabilitado y enlaza de verdad, sin tocar
+  // nada más en la página. Cubre el caso de quien llega desde escritorio o
+  // desde un navegador que no se pudo identificar como Android/iOS -- a
+  // esos nunca los redirige el script del <head>, así que necesitan el
+  // botón activado para poder descargar.
+  document.addEventListener('DOMContentLoaded', function() {
+    function activarBotonTienda(id, cfg) {
+      var btn = document.getElementById(id);
+      if (!btn || !cfg.live || !cfg.url) return;
+      btn.href = cfg.url;
+      btn.target = '_blank';
+      btn.rel = 'noopener';
+      btn.style.opacity = '1';
+      btn.style.pointerEvents = 'auto';
+      var soon = btn.querySelector('.btn-store-soon');
+      var badge = btn.querySelector('.badge-pronto');
+      if (soon) soon.textContent = 'Descárgala en';
+      if (badge) badge.remove();
+    }
+    activarBotonTienda('btn-store-android', STORE_CONFIG.android);
+    activarBotonTienda('btn-store-ios', STORE_CONFIG.ios);
   });
   function cerrarMenu() {
     var n = document.getElementById('nav-links');
