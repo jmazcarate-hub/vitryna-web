@@ -135,7 +135,16 @@
   const oobCode = params.get('oobCode');
   const mode = params.get('mode');
 
-  if (!oobCode || mode !== 'verifyEmail') {
+  // Sin parámetros: venimos del redirect post-acción de la página de
+  // Firebase por defecto (mientras la Action URL del proyecto no apunte
+  // aquí directamente, ver CLAUDE.md) -- esa página ya aplicó el oobCode
+  // ella misma antes de redirigir, así que no queda nada que hacer aquí
+  // salvo mostrar éxito. Sin este caso, un refresco o el "Continue" de
+  // Firebase caían siempre en "Enlace no válido" aunque la verificación ya
+  // hubiera funcionado -- mismo patrón que reset-password.html.
+  if (!mode && !oobCode) {
+    mostrar('view-exito');
+  } else if (!oobCode || mode !== 'verifyEmail') {
     mostrar('view-error');
   } else {
     applyActionCode(auth, oobCode)
