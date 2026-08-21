@@ -4,13 +4,14 @@
   <meta charset="UTF-8">
   <script>
     // ── CONFIG DE TIENDAS ───────────────────────────────────────────────────
-    // Única fuente de verdad para activar la redirección inteligente y los
-    // botones de descarga cuando la app se publique en cada tienda. El QR
-    // físico ya está impreso y apunta a la raíz de vitryna.app sin ninguna
-    // ruta adicional -- no se puede cambiar. Activar una tienda es solo:
-    // poner su "live" a true y rellenar "url" con la ficha real, sin tocar
-    // nada más (ni el QR, ni la estructura de esta página, ni la de
-    // Android una vez rellena, si iOS tarda más en aprobarse).
+    // Única fuente de verdad para activar los botones de descarga cuando la
+    // app se publique en cada tienda. El QR físico ya está impreso y apunta
+    // a la raíz de vitryna.app sin ninguna ruta adicional -- no se puede
+    // cambiar, y esta landing tampoco se sustituye por una redirección: la
+    // página sigue siendo la misma, solo decide qué botón mostrar según el
+    // user-agent (ver el script del final de la página). Activar una
+    // tienda es solo poner su "live" a true y rellenar "url" con la ficha
+    // real, sin tocar nada más (ni el QR, ni la estructura de la página).
     var STORE_CONFIG = {
       android: {
         live: false,
@@ -21,23 +22,6 @@
         url: '' // rellenar con la ficha real de App Store en cuanto exista
       }
     };
-
-    // Redirección inteligente por user-agent -- va aquí arriba, antes de
-    // cargar fuentes/CSS/el resto del <head>, para redirigir lo antes
-    // posible en un móvil y no hacer parpadear la landing de por medio. Si
-    // no se puede determinar la plataforma (ordenador, navegador raro) o
-    // esa tienda todavía no está activa (STORE_CONFIG.*.live === false),
-    // no hace nada -- la landing normal de más abajo hace de "disponible
-    // muy pronto" mientras tanto, con sus botones ya preparados para
-    // activarse solos (ver el script del final de la página).
-    (function () {
-      var ua = navigator.userAgent || '';
-      if (/Android/i.test(ua) && STORE_CONFIG.android.live && STORE_CONFIG.android.url) {
-        window.location.replace(STORE_CONFIG.android.url);
-      } else if (/iPhone|iPad|iPod/i.test(ua) && STORE_CONFIG.ios.live && STORE_CONFIG.ios.url) {
-        window.location.replace(STORE_CONFIG.ios.url);
-      }
-    })();
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vitryna - El escaparate de tu barrio</title>
@@ -637,14 +621,28 @@
     }
   });
 
-  // Botones de tienda -- misma STORE_CONFIG que la redirección inteligente
-  // del <head>. En cuanto una tienda pase a live:true (con su url real),
-  // este botón deja de estar deshabilitado y enlaza de verdad, sin tocar
-  // nada más en la página. Cubre el caso de quien llega desde escritorio o
-  // desde un navegador que no se pudo identificar como Android/iOS -- a
-  // esos nunca los redirige el script del <head>, así que necesitan el
-  // botón activado para poder descargar.
+  // Botones de tienda -- misma STORE_CONFIG del <head>. Dos cosas
+  // independientes, controladas cada una por su propio dato:
+  // 1) Qué botón se ve: por user-agent, Android ve solo el de Google Play,
+  //    iOS ve solo el de App Store, y quien no se pueda identificar
+  //    (ordenador, navegador raro) ve los dos para elegir. Menos toques
+  //    para llegar a la descarga correcta desde el QR físico, sin dejar
+  //    de mostrar ambas opciones a quien no se sabe cuál usar.
+  // 2) Si el botón visible enlaza de verdad o dice "Pronto": en cuanto una
+  //    tienda pase a live:true (con su url real), su botón deja de estar
+  //    deshabilitado y enlaza de verdad -- sin tocar nada más en la
+  //    página. Mientras siga en false, se queda con el aviso de
+  //    "Próximamente" ya diseñado, en vez de un enlace roto.
   document.addEventListener('DOMContentLoaded', function() {
+    var ua = navigator.userAgent || '';
+    var esAndroid = /Android/i.test(ua);
+    var esIOS = /iPhone|iPad|iPod/i.test(ua);
+
+    var btnAndroid = document.getElementById('btn-store-android');
+    var btnIOS = document.getElementById('btn-store-ios');
+    if (esAndroid && btnIOS) btnIOS.style.display = 'none';
+    if (esIOS && btnAndroid) btnAndroid.style.display = 'none';
+
     function activarBotonTienda(id, cfg) {
       var btn = document.getElementById(id);
       if (!btn || !cfg.live || !cfg.url) return;
