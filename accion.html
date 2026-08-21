@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vitryna</title>
+  <link rel="icon" type="image/png" href="https://firebasestorage.googleapis.com/v0/b/mi-barrio-vivo-ba557.firebasestorage.app/o/brand%2Ficon.png?alt=media&token=f5317c2f-2f05-43c3-b376-5a15364adbd2">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #F8FAFC;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+<!--
+  Despachador único de enlaces de acción de Firebase Auth (verificación de
+  email, reset de contraseña, y cualquier modo futuro). Firebase Auth solo
+  permite configurar UNA "Action URL" para todo el proyecto (Authentication
+  → Templates → cualquier plantilla → "Customize action URL", ver
+  https://firebase.google.com/docs/auth/custom-email-handler) -- sin
+  configurarla, el enlace del email pasa siempre primero por la página por
+  defecto de Firebase (en inglés, sin marca) antes de llegar a
+  verificar-email.html/reset-password.html, que rompía el flujo porque esas
+  páginas esperan recibir el oobCode ellas mismas, sin pasar por Firebase
+  antes. El parámetro `url` que se manda desde Cloud Functions
+  (ActionCodeSettings) NO cambia esto -- solo se usa como continueUrl
+  DESPUÉS de la página de Firebase, no como el destino inicial del enlace.
+  Esta página es el destino a configurar como Action URL del proyecto;
+  redirige según `mode` a la página real, conservando todos los parámetros.
+-->
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const mode = params.get('mode');
+  const destino = mode === 'resetPassword' ? 'reset-password.html' : 'verificar-email.html';
+  window.location.replace(destino + window.location.search);
+</script>
+
+</body>
+</html>
