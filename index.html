@@ -113,18 +113,6 @@
     @keyframes float { 0%,100%{transform:translateY(0) rotate(2deg)}50%{transform:translateY(-14px) rotate(2deg)} }
     .phone { width: 220px; height: 460px; background: var(--negro); border-radius: 38px; border: 6px solid #1c1c1c; box-shadow: 0 40px 80px rgba(0,0,0,0.22), 0 0 0 1px rgba(255,255,255,0.06) inset; overflow: hidden; position: relative; }
     .phone-screen { width: 100%; height: 100%; background: #F4F6FC; overflow: hidden; }
-    .phone-header { background: var(--azul); padding: 1rem 0.9rem 0.7rem; display: flex; align-items: center; gap: 0.5rem; }
-    .phone-logo-wrap { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; }
-    .phone-logo-wrap img { width: 100%; height: 100%; object-fit: contain; }
-    .phone-header-text { color: white; font-size: 0.68rem; font-weight: 600; font-family: 'Bricolage Grotesque', sans-serif; }
-    .phone-cards { padding: 0.4rem; display: flex; flex-direction: column; gap: 0.32rem; }
-    .phone-card { background: white; border-radius: 10px; padding: 0.55rem; box-shadow: 0 1px 4px rgba(0,0,0,0.06); display: flex; gap: 0.45rem; align-items: center; }
-    .phone-card-emoji { width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
-    .phone-card-title { font-size: 0.56rem; font-weight: 600; color: var(--negro); margin-bottom: 0.1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 110px; }
-    .phone-card-sub { font-size: 0.48rem; color: var(--gris); }
-    .phone-card-stats { display: flex; gap: 0.4rem; margin-top: 0.18rem; }
-    .phone-card-stat { font-size: 0.44rem; color: var(--gris); }
-    .phone-fab { position: absolute; bottom: 1.1rem; right: 0.7rem; background: var(--azul); color: white; border-radius: 20px; padding: 0.32rem 0.65rem; font-size: 0.48rem; font-weight: 700; box-shadow: 0 4px 12px rgba(26,107,255,0.45); font-family: 'Bricolage Grotesque', sans-serif; }
 
     /* ── PROOF STRIP ── */
     .proof { padding: 1.8rem 2.5rem; border-top: 1px solid var(--borde); border-bottom: 1px solid var(--borde); }
@@ -335,39 +323,7 @@
       <div class="phone-wrap">
         <div class="phone">
           <div class="phone-screen">
-            <div class="phone-header">
-              <div class="phone-logo-wrap">
-                <img src="https://firebasestorage.googleapis.com/v0/b/mi-barrio-vivo-ba557.firebasestorage.app/o/brand%2Ficon.png?alt=media&token=f5317c2f-2f05-43c3-b376-5a15364adbd2" alt="vitryna">
-              </div>
-              <span class="phone-header-text">vitryna · Mi barrio</span>
-            </div>
-            <div class="phone-cards">
-              <div class="phone-card">
-                <div class="phone-card-emoji" style="background:#FFF6E0">🍽️</div>
-                <div style="flex:1;min-width:0">
-                  <div class="phone-card-title">Menú del día disponible</div>
-                  <div class="phone-card-sub">Bar El Rincón · 120m</div>
-                  <div class="phone-card-stats"><span class="phone-card-stat">👁 47</span><span class="phone-card-stat">👆 8</span></div>
-                </div>
-              </div>
-              <div class="phone-card">
-                <div class="phone-card-emoji" style="background:#EBF0FF">🥩</div>
-                <div style="flex:1;min-width:0">
-                  <div class="phone-card-title">Cordero fresco llegado hoy</div>
-                  <div class="phone-card-sub">Carnicería López · 280m</div>
-                  <div class="phone-card-stats"><span class="phone-card-stat">👁 31</span><span class="phone-card-stat">👆 5</span></div>
-                </div>
-              </div>
-              <div class="phone-card">
-                <div class="phone-card-emoji" style="background:#DCFCE7">✂️</div>
-                <div style="flex:1;min-width:0">
-                  <div class="phone-card-title">Hueco libre esta tarde</div>
-                  <div class="phone-card-sub">Estilo y Arte · 350m</div>
-                  <div class="phone-card-stats"><span class="phone-card-stat">👁 19</span><span class="phone-card-stat">👆 4</span></div>
-                </div>
-              </div>
-            </div>
-            <div class="phone-fab">⚡ Publicar</div>
+            <img src="marketing/captura-mapa.jpg" alt="Mapa del barrio en vitryna" style="width:100%;height:100%;object-fit:cover;display:block;">
           </div>
         </div>
       </div>
