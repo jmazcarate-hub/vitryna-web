@@ -1,0 +1,9 @@
+{
+  "hosting": {
+    "site": "vitryna-web",
+    "public": ".",
+    "ignore": ["firebase.json", "**/.git/**", "**/node_modules/**"],
+    "cleanUrls": true,
+    "trailingSlash": false
+  }
+}
