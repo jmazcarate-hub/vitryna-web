@@ -232,8 +232,11 @@
     footer { background: var(--negro); padding: 2rem 2.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
     .footer-logo { display: flex; align-items: center; gap: 0.55rem; }
     .footer-logo img { width: 35px; height: 35px; object-fit: contain; }
+    .footer-logo-text-block { display: flex; flex-direction: column; line-height: 1.15; }
     .footer-logo-text { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 0.95rem; color: var(--blanco); letter-spacing: -0.03em; }
     .footer-logo-text span { color: var(--naranja); }
+    .footer-logo-slogan { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 500; font-size: 0.62rem; color: rgba(255,255,255,0.5); }
+    .footer-logo-slogan strong { color: var(--naranja); font-weight: 700; }
     .footer-links { display: flex; gap: 1.5rem; }
     .footer-links a { font-size: 0.78rem; color: rgba(255,255,255,0.28); text-decoration: none; transition: color 0.2s; }
     .footer-links a:hover { color: rgba(255,255,255,0.6); }
@@ -340,7 +343,7 @@
     <span class="proof-label">Ya en tu barrio</span>
     <div class="proof-stats">
       <div><div class="proof-num">30"</div><div class="proof-desc">para publicar una novedad</div></div>
-      <div><div class="proof-num">3km</div><div class="proof-desc">radio máximo de alcance</div></div>
+      <div><div class="proof-num">2km</div><div class="proof-desc">radio máximo de alcance</div></div>
       <div><div class="proof-num">0€</div><div class="proof-desc">para empezar</div></div>
       <div><div class="proof-num">7d</div><div class="proof-desc">de vida por publicación</div></div>
     </div>
@@ -403,7 +406,7 @@
       <div class="step reveal reveal-2">
         <div class="step-num">02</div>
         <div class="step-title">Llega al vecino cercano</div>
-        <p class="step-desc">Tu publicación aparece en el feed de todos los usuarios dentro de tu radio, de 250m a 3km.</p>
+        <p class="step-desc">Tu publicación aparece en el feed de todos los usuarios dentro de tu radio, de 250m a 2km.</p>
       </div>
       <div class="step reveal reveal-3">
         <div class="step-num">03</div>
@@ -438,7 +441,7 @@
           </div>
           <div class="vecino-item reveal reveal-3">
             <div class="vecino-icon">📱</div>
-            <div><div class="vecino-title">Ajusta tu radio</div><div class="vecino-desc">Configura el radio de búsqueda de 250m a 3km según lo que necesites en cada momento.</div></div>
+            <div><div class="vecino-title">Ajusta tu radio</div><div class="vecino-desc">Configura el radio de búsqueda de 250m a 2km según lo que necesites en cada momento.</div></div>
           </div>
         </div>
       </div>
@@ -529,7 +532,7 @@
 <!-- CITA -->
 <section class="cita">
   <div class="cita-inner">
-    <blockquote class="reveal">"¿Sabes qué está pasando <em>ahora mismo</em> a 200 metros de aquí? Descubre las novedades de los comercios de tu barrio antes de que se agoten."</blockquote>
+    <blockquote class="reveal">"¿Sabes qué está pasando ahora mismo a 200 metros de aquí? Descubre las novedades de los comercios de <em>tu barrio</em> antes de que se agoten."</blockquote>
     <p class="cita-sub reveal reveal-1">vitryna · El escaparate de tu barrio</p>
   </div>
 </section>
@@ -554,7 +557,10 @@
 <footer>
   <div class="footer-logo">
     <img src="https://firebasestorage.googleapis.com/v0/b/mi-barrio-vivo-ba557.firebasestorage.app/o/brand%2Ficon.png?alt=media&token=f5317c2f-2f05-43c3-b376-5a15364adbd2" alt="vitryna">
-    <span class="footer-logo-text">vitryna<span>.</span></span>
+    <div class="footer-logo-text-block">
+      <span class="footer-logo-text">vitryna<span>.</span></span>
+      <span class="footer-logo-slogan">El escaparate de <strong>tu barrio</strong></span>
+    </div>
   </div>
   <div class="footer-links">
     <a href="#comercios">Para comercios</a>
