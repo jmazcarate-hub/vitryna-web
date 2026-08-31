@@ -58,7 +58,10 @@
     .nav-logo { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; }
     .nav-logo-img { width: 46px; height: 46px; }
     .nav-logo-img img { width: 100%; height: 100%; object-fit: contain; }
+    .nav-logo-text-block { display: flex; flex-direction: column; line-height: 1.15; }
     .nav-logo-text { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 1.15rem; color: var(--negro); letter-spacing: -0.03em; }
+    .nav-logo-slogan { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 500; font-size: 0.66rem; color: var(--gris); }
+    .nav-logo-slogan strong { color: var(--naranja); font-weight: 700; }
     .nav-links { display: flex; gap: 2rem; align-items: center; }
     .nav-links a { font-size: 0.88rem; color: var(--gris); text-decoration: none; font-weight: 400; transition: color 0.2s; }
     .nav-links a:hover { color: var(--negro); }
@@ -86,10 +89,7 @@
     .hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--azul); animation: blink 2s infinite; }
     @keyframes blink { 0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)} }
     .hero h1 { font-family: 'Bricolage Grotesque', sans-serif; font-size: clamp(2.6rem,4.8vw,4rem); font-weight: 800; line-height: 1.06; letter-spacing: -0.04em; color: var(--negro); margin-bottom: 1.4rem; }
-    .hero h1 em { font-style: normal; color: var(--azul); }
-    .hero-underline { position: relative; display: inline-block; }
-    .hero-underline::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 5px; background: var(--naranja); border-radius: 3px; transform: scaleX(0); transform-origin: left; animation: grow 0.6s 0.9s ease forwards; }
-    @keyframes grow { to { transform: scaleX(1); } }
+    .hero-naranja { color: var(--naranja); }
     .hero p { font-size: 1.05rem; color: var(--gris); line-height: 1.72; margin-bottom: 2.4rem; font-weight: 300; max-width: 480px; }
     .hero-btns { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.8rem; }
     .btn-dark { background: var(--negro); color: var(--blanco); padding: 0.88rem 1.8rem; border-radius: 100px; font-weight: 500; font-size: 0.9rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: transform 0.2s, opacity 0.2s; }
@@ -278,7 +278,10 @@
     <div class="nav-logo-img">
       <img src="https://firebasestorage.googleapis.com/v0/b/mi-barrio-vivo-ba557.firebasestorage.app/o/brand%2Ficon.png?alt=media&token=f5317c2f-2f05-43c3-b376-5a15364adbd2" alt="vitryna">
     </div>
-    <span class="nav-logo-text">vitryna</span>
+    <div class="nav-logo-text-block">
+      <span class="nav-logo-text">vitryna</span>
+      <span class="nav-logo-slogan">El escaparate de <strong>tu barrio</strong></span>
+    </div>
   </a>
   <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -298,7 +301,7 @@
   <div class="hero-inner">
     <div>
       <div class="hero-badge"><div class="hero-badge-dot"></div>Ahora disponible en tu barrio</div>
-      <h1>Tu <span class="hero-underline">barrio</span><br>en tiempo <em>real.</em></h1>
+      <h1><span class="hero-naranja">Tu barrio</span><br>en tiempo real.</h1>
       <p>vitryna conecta a los comercios locales con los vecinos que están físicamente cerca. Sin algoritmos, sin grandes plataformas. El escaparate digital que tu barrio necesitaba.</p>
       <div class="hero-btns">
         <a href="#contacto" class="btn-dark">Registra tu comercio <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></a>
