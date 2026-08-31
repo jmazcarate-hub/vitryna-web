@@ -4,6 +4,15 @@
     "public": ".",
     "ignore": ["firebase.json", "**/.git/**", "**/node_modules/**"],
     "cleanUrls": true,
-    "trailingSlash": false
+    "trailingSlash": false,
+    "rewrites": [
+      {
+        "source": "/r/**",
+        "function": {
+          "functionId": "redirigirQR",
+          "region": "europe-west1"
+        }
+      }
+    ]
   }
 }
